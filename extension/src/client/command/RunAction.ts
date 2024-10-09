@@ -280,7 +280,6 @@ class ActionRunner {
         }
 
         this.logger.info(`Running workflow ${RUN_SCRIPT_WORKFLOW_ID} (vRO ${this.vroVersion})`)
-        const supportsSysLog = semver.gt(this.vroVersion, "7.3.1")
         const params = [
             {
                 name: "script",
@@ -293,7 +292,7 @@ class ActionRunner {
                 name: "printInOutput",
                 type: "boolean",
                 value: {
-                    boolean: { value: !supportsSysLog }
+                    boolean: { value: true }
                 }
             }
         ]
