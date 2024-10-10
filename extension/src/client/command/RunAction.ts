@@ -415,6 +415,9 @@ abstract class FetchSysLogsStrategy extends FetchLogsStrategy {
     protected abstract getLogMessages(): Promise<LogMessage[]>
 
     async printMessages(): Promise<void> {
+        if (Logger.level === "off") {
+            return
+        }
         const timestamp = Date.now() - 10000 // 10sec earlier
         const logs = await this.getLogMessages()
         logs.forEach(logMessage => {
@@ -454,7 +457,7 @@ class FetchLogsPre76 extends FetchSysLogsStrategy {
         return this.restClient.getWorkflowLogsPre76(
             RUN_SCRIPT_WORKFLOW_ID,
             this.executionToken,
-            "debug",
+            Logger.level,
             this.lastTimestamp
         )
     }
@@ -474,7 +477,7 @@ class FetchLogsPost76 extends FetchSysLogsStrategy {
         return this.restClient.getWorkflowLogsPost76(
             RUN_SCRIPT_WORKFLOW_ID,
             this.executionToken,
-            "debug",
+            Logger.level,
             this.lastTimestamp
         )
     }

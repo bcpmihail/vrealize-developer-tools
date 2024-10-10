@@ -13,8 +13,10 @@ export interface LogChannel {
 }
 
 export default class Logger {
-    private static logLevel: LogLevel = "debug"
+    private static logLevel: LogLevel = "info"
     private static logChannel: LogChannel
+
+    public static get level():LogLevel { return Logger.logLevel; }
 
     constructor(private className: string) {}
 
